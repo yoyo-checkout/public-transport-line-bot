@@ -1,4 +1,12 @@
 const linebot = require('linebot');
+const axios = require('axios');
+
+const v2API = axios.create({
+  baseURL: 'https://ptx.transportdata.tw/MOTC/v2',
+});
+const v3API = axios.create({
+  baseURL: 'https://ptx.transportdata.tw/MOTC/v3',
+});
 
 const bot = linebot({
   channelId: process.env.CHANNEL_ID,
@@ -12,7 +20,8 @@ bot.on('message', event => {
     case 'text':
       switch (event.message.text) {
         case '台鐵即時站點資訊':
-          event.reply('台鐵即時站點資訊')
+          const rlt = v2API.get('/Rail/TRA/LiveTrainDelay?$top=1&$format=JSON');
+          event.reply(rlt);
           break;
         case 'Me':
           event.source.profile().then(function (profile) {
