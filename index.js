@@ -1,9 +1,6 @@
 const linebot = require('linebot');
 const express = require('express');
 
-if (process.env.NODE_ENV !== 'production') {
- require('dotenv').config();
-}
 const bot = linebot({
   channelId: process.env.CHANNEL_ID,
   channelSecret: process.env.CHANNEL_SECRET,
