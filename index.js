@@ -15,13 +15,13 @@ const bot = linebot({
 });
 
 // 當有人傳送訊息給 Bot 時
-bot.on('message', event => {
+bot.on('message', aysnc (event) => {
   switch (event.message.type) {
     case 'text':
       switch (event.message.text) {
         case '台鐵即時站點資訊':
-          const rlt = v2API.get('/Rail/TRA/LiveTrainDelay?$top=1&$format=JSON');
-          event.reply(rlt);
+          const { data } = await v2API.get('/Rail/TRA/LiveTrainDelay?$top=1&$format=JSON');
+          event.reply(data.StationName.Zh_tw);
           break;
         case 'Me':
           event.source.profile().then(function (profile) {
