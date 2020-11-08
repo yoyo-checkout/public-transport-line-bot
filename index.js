@@ -15,7 +15,7 @@ const bot = linebot({
 });
 
 // 當有人傳送訊息給 Bot 時
-bot.on('message', aysnc (event) => {
+bot.on('message', async (event) => {
   switch (event.message.type) {
     case 'text':
       switch (event.message.text) {
