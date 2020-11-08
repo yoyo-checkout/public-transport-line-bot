@@ -1,12 +1,18 @@
 const linebot = require('linebot');
 const express = require('express');
-const dotenv = require('dotenv').config();
 
+if (process.env.NODE_ENV !== 'production') {
+ require('dotenv').config();
+}
 const bot = linebot({
   channelId: process.env.CHANNEL_ID,
   channelSecret: process.env.CHANNEL_SECRET,
   channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN
 });
+
+const app = express();
+const linebotParser = bot.parser();
+app.post('/', linebotParser);
 
 // 當有人傳送訊息給 Bot 時
 bot.on('message', event => {
@@ -14,7 +20,8 @@ bot.on('message', event => {
   event.reply(`你說了 ${event.message.text}`);
 });
 
-// Bot 所監聽的 webhook 路徑與 port，heroku 會動態存取 port 所以不能用固定的 port，沒有的話用預設的 port 5000
-bot.listen('/', process.env.PORT || 5000, () => {
-  console.log('全國首家LINE線上機器人上線啦！！');
+//因為 express 預設走 port 3000，而 heroku 上預設卻不是，要透過下列程式轉換
+const server = app.listen(process.env.PORT || 8080, () => {
+  const port = server.address().port;
+  console.log("App now running on port", port);
 });
