@@ -18,6 +18,7 @@
   "homepage": "https://github.com/yoyo-checkout/public-transport-line-bot#readme",
   "dependencies": {
     "axios": "^0.21.0",
+    "jssha": "^3.1.2",
     "linebot": "^1.6.1"
   }
 }
