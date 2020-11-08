@@ -19,11 +19,6 @@ bot.on('message', event => {
             return event.reply('Hello ' + profile.displayName + ' ' + profile.userId);
           });
           break;
-        case 'Member':
-          event.source.member().then(function (member) {
-            return event.reply(JSON.stringify(member));
-          });
-          break;
         case 'Picture':
           event.reply({
             type: 'image',
@@ -39,18 +34,6 @@ bot.on('message', event => {
             latitude: 13.7202068,
             longitude: 100.5298698
           });
-          break;
-        case 'Push':
-          bot.push('U17448c796a01b715d293c34810985a4c', ['Hey!', 'สวัสดี ' + String.fromCharCode(0xD83D, 0xDE01)]);
-          break;
-        case 'Push2':
-          bot.push('Cba71ba25dafbd6a1472c655fe22979e2', 'Push to group');
-          break;
-        case 'Multicast':
-          bot.push(['U17448c796a01b715d293c34810985a4c', 'Cba71ba25dafbd6a1472c655fe22979e2'], 'Multicast!');
-          break;
-        case 'Broadcast':
-          bot.broadcast('Broadcast!');
           break;
         case 'Confirm':
           event.reply({
@@ -88,15 +71,8 @@ bot.on('message', event => {
             event.reply('Total reply messages: ' + result.success);
           });
           break;
-        case 'Version':
-          event.reply('linebot@' + require('../package.json').version);
-          break;
         default:
-          event.reply(event.message.text).then(function (data) {
-            console.log('Success', data);
-          }).catch(function (error) {
-            console.log('Error', error);
-          });
+          event.reply('很抱歉，我們無法理解您的疑問，請換個方式再問一次。');
           break;
       }
       break;
@@ -105,8 +81,6 @@ bot.on('message', event => {
       break;
   }
 });
-
-
 
 // Bot 所監聽的 webhook 路徑與 port
 // heroku 會動態存取 port 所以不能用固定的 port，沒有的話用預設的 port 5000
