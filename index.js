@@ -308,7 +308,7 @@ bot.on('message', async (event) => {
                             type: 'uri',
                             label: 'CALL',
                             uri: 'https://linecorp.com',
-                          },,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+                          },
                         },
                         {
                           type: 'button',
